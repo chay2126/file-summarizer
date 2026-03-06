@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Summari — AI File Summarizer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+
+  <!-- Background grain overlay -->
+  <div class="grain"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <span class="logo-dot"></span>
+      <span class="logo-text">Summari</span>
+    </div>
+    <div class="header-tag">Powered by <strong>phi3</strong> · Local AI</div>
+  </header>
+
+  <!-- Hero -->
+  <main>
+    <section class="hero">
+      <p class="eyebrow">AI Document Intelligence</p>
+      <h1>Drop a file.<br/><em>Get the essence.</em></h1>
+      <p class="subheading">Upload any .txt, .pdf, or .docx file and get an instant AI-generated summary with key insights — all running locally on your machine.</p>
+    </section>
+
+    <!-- Upload Card -->
+    <section class="upload-section">
+      <div class="upload-card" id="dropZone">
+        <div class="upload-icon">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="17 8 12 3 7 8"/>
+            <line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+        </div>
+        <p class="upload-title">Drag & drop your file here</p>
+        <p class="upload-sub">or click to browse</p>
+        <div class="file-types">
+          <span>.TXT</span>
+          <span>.PDF</span>
+          <span>.DOCX</span>
+        </div>
+        <input type="file" id="fileInput" accept=".txt,.pdf,.docx" hidden />
+      </div>
+
+      <!-- Selected file preview -->
+      <div class="file-preview" id="filePreview" style="display:none;">
+        <div class="file-info">
+          <div class="file-icon" id="fileIcon">📄</div>
+          <div>
+            <p class="file-name" id="fileName">document.pdf</p>
+            <p class="file-size" id="fileSize">0 KB</p>
+          </div>
+          <button class="remove-btn" id="removeBtn">✕</button>
+        </div>
+        <button class="summarize-btn" id="summarizeBtn">
+          <span id="btnText">Summarize Document</span>
+          <div class="btn-arrow">→</div>
+        </button>
+      </div>
+    </section>
+
+    <!-- Loading State -->
+    <section class="loading-section" id="loadingSection" style="display:none;">
+      <div class="loading-card">
+        <div class="loader-ring"></div>
+        <p class="loading-title">Analysing your document...</p>
+        <p class="loading-sub">phi3 is reading and thinking. This may take 20–60 seconds on CPU.</p>
+        <div class="loading-steps">
+          <div class="step active" id="step1">① Extracting text</div>
+          <div class="step" id="step2">② Sending to model</div>
+          <div class="step" id="step3">③ Generating summary</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Results -->
+    <section class="results-section" id="resultsSection" style="display:none;">
+      <div class="results-header">
+        <div>
+          <p class="results-eyebrow">Summary Complete</p>
+          <h2 class="results-filename" id="resultsFilename">document.pdf</h2>
+          <p class="results-meta" id="resultsMeta">0 words processed</p>
+        </div>
+        <button class="new-btn" id="newBtn">+ New File</button>
+      </div>
+
+      <div class="results-grid">
+        <!-- Summary Card -->
+        <div class="result-card summary-card">
+          <div class="card-label">
+            <span class="label-dot"></span>
+            Overview
+          </div>
+          <p class="summary-text" id="summaryText"></p>
+        </div>
+
+        <!-- Bullets Card -->
+        <div class="result-card bullets-card">
+          <div class="card-label">
+            <span class="label-dot accent2"></span>
+            Key Takeaways
+          </div>
+          <ul class="bullets-list" id="bulletsList"></ul>
+        </div>
+      </div>
+
+      <!-- Copy buttons -->
+      <div class="copy-row">
+        <button class="copy-btn" id="copySummary">Copy Summary</button>
+        <button class="copy-btn" id="copyAll">Copy Everything</button>
+      </div>
+    </section>
+
+    <!-- Error State -->
+    <section class="error-section" id="errorSection" style="display:none;">
+      <div class="error-card">
+        <div class="error-icon">⚠</div>
+        <p class="error-title">Something went wrong</p>
+        <p class="error-msg" id="errorMsg">Unknown error occurred.</p>
+        <button class="new-btn" id="retryBtn">Try Again</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>Running locally on your machine · No data leaves your device · Built with FastAPI + Ollama</p>
+  </footer>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>
